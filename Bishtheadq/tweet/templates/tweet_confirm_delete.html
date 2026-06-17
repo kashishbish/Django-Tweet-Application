@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Bisht and Tweet
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center  mt-4">Are you sure that you want to delete the tweet?</h1> 
+
+{% comment %} multipart/form-data ki zarurat h ni qki kuch data bhj nni re bss ek form data ara h apne pass {% endcomment %}
+<form method="post">
+    {% csrf_token%}
+    {% comment %} form current url pe submit hora h qki humne action kuch dia ni 
+    or fr tweet_delete ka jo view function humne banaya h vo kaam krra h {% endcomment %}
+    <button class="btn btn-danger">Delete</button>
+    {% comment %} Ye GET request bhejta hai
+    Delete logic sirf POST me hai
+    Isliye safe {% endcomment %}
+    <a class="btn btn-success" href="{% url 'tweet_list' %}">Cancel </a>
+</form>
+{% endblock %}

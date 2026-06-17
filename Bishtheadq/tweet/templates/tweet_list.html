@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Bisht and Tweet
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center  mt-4">Tweet Timeline</h1> 
+
+{% comment %} #ek button(link) de dete h jisse user apna tweet create kr paaye
+url-->kaha pr jaega ye link {% endcomment %}
+<a class="btn btn-primary" href="{% url 'tweet_create' %}"> Create a tweet </a>
+
+{% comment %} #ek row create krenge using bootstrap {% endcomment %}
+<div class="container row gap">
+
+    {% comment %} loop-->tweets(views k andr saari listing tweets k through ki h or unhi ko hum return krre the) {% endcomment %}
+   {% for tweet in tweets %}  
+   {% comment %} bootstrap se pre build card code utha lia bss usme data inject kr do {% endcomment %}
+   <div class=" card rounded-4" style="width:18rem; margin-top:0.2rem; margin:0.3rem;" >
+    {% if tweet.photo %}
+    <img src="{{ tweet.photo.url }}"
+         class="card-img-top rounded-4"
+         alt="..."
+         style="height:18rem; padding-top:0.5rem; ">
+{% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{tweet.user.username}}</h5>
+      <p class="card-text">{{tweet.text}}</p>
+      
+      {% comment %} #taaki jo edit or delete ka option h vo apne hi tweet m dikhein {% endcomment %}
+      {% if tweet.user == request.user %}
+      {% comment %} button m sath m url b deni pdegi  {% endcomment %}
+      <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

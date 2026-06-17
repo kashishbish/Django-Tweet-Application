@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Bisht and Tweet
+{% endblock %}
+
+{% block content %}
+
+{% comment %} #create krne k liye form chaiye {% endcomment %}
+<h1 class="text-center  mt-4">Create your new tweet</h1> 
+
+    {%if form.instance.pk %} 
+    Edit Tweet 
+    {% else %} Create Tweet {% endif %} 
+
+    {% comment %} encrption type -->enctype="multipart/form-data" (ab hamara form koi b file hogi usko accept kr paega)
+    basic html one to one hain 
+    djangoo m form me action b ni chaiye hota{% endcomment %}
+    <form method="POST" enctype="multipart/form-data" class="form" style=" font-size:24px">
+         {% csrf_token %}
+        {% comment %} csrf token important hota h ek toh humne views m likha b h form.is_valid (wrna django by default 
+        khud b krta h) {% endcomment %}
+        {{form.as_p}}
+        {% comment %} as_p krne se as a paragraph render ho jaega {% endcomment %}
+        <button class="btn btn-warning" type="submit">Done</button>
+    </form>
+    <a href="{% url 'tweet_list'%}">Back to tweet list.</a>
+</h2>
+{% endblock %}
